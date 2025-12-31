@@ -5,7 +5,7 @@ end
 
 function [sol_q,sol_err] = cinematique_inverse_obstacle_aleatoire(dims,q0,x,y,angle,obstacle)
     % Itere la cinematique inverse plusieur fois jusqu'a trouver une solution 
-    n_iter = 200;
+    n_iter = 500;
     min_distance = 0.1;
 
     sol_found = false;
@@ -28,10 +28,10 @@ end
 
 function [sol_q,sol_err] = cinematique_inverse_obstacle_genetique(dims,q0,x,y,angle,obstacle)
     % Itere la cinematique inverse plusieur fois jusqu'a trouver une solution 
-    n_pop = 200; % Taille population (valeur initiale)
+    n_pop = 500; % Taille population (valeur initiale)
     n_gen = 3; % Nombre de génération
-    n_parent = 1; % Nombre de parent séléctionner
-    n_child = 25; % Nombre d'enfant par parent
+    n_parent = 1; % Nombre de parents séléctionner
+    n_child = 25; % Nombre d'enfants par parent
     alpha = 0.1; % Taux de mutation
     % Initialisation de la population, qui sont des positions aléatoire
     population = repmat(q0, 1, n_pop) + 2 * pi * rand(4, n_pop);
@@ -41,7 +41,7 @@ function [sol_q,sol_err] = cinematique_inverse_obstacle_genetique(dims,q0,x,y,an
         for i = 1:n_pop
             [q,err] = cinematique_inverse(dims, population(:, i), x, y, angle);
             if(check_obstacle(dims,q,obstacle))
-                fitness(i) = dist_obstacle(dims,q,obstacle);
+                fitness(i) = dist_obstacle(dims,q,obstacle) - err;
             else
                 fitness(i) = -1;
             end
