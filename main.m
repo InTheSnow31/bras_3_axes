@@ -3,7 +3,7 @@ clear all;close all;clc;
 axis equal
 
 %% Dimensionement du robot
-dims = [1; 1; 2; 1];
+dims = [1; 1; 1; 1];
 
 %% Dessin du robot
 dessin_bras(dims,[pi/2; pi/4; pi/4; pi/4]);
@@ -16,8 +16,8 @@ dessin_obstacle(obstacle);
 cinematique_directe(dims,[-pi/2; pi/4; pi/4; pi/4]);
 
 %% Cinematique inverse
-[q,erreur] = cinematique_inverse_obstacle(dims,[pi/2; pi/4; pi/4; pi/4],3,2,pi/4,obstacle)
+[q,erreur] = cinematique_inverse_obstacle(dims,[pi/2; pi/4; pi/4; pi/4],2.5,1,pi/2,obstacle)
 dessin_bras(dims,q);
 
-obstacle_clear = check_obstacle(dims,q,obstacle)
-min_dist = dist_obstacle(dims,q,obstacle)
+obstacle_clear = check_obstacle(dims,q,obstacle);
+min_dist = dist_obstacle(dims,q,obstacle);
