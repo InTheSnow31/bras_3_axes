@@ -39,11 +39,50 @@ function obstacle_clear = check_obstacle(dims,q,obstacle)
 
 end
 
+%function collision = check_segment(seg_x, seg_y, obstacle)
+%    rect_x = [obstacle(1), obstacle(1)+obstacle(3), obstacle(1)+obstacle(3), obstacle(1), obstacle(1)];
+%    rect_y = [obstacle(2), obstacle(2), obstacle(2)+obstacle(4), obstacle(2)+obstacle(4), obstacle(2)];
+%
+%    [xi, ~] = polyxpoly(seg_x, seg_y, rect_x, rect_y); % test des intersections avec le rectangle
+%
+%    collision = ~isempty(xi);
+%end
+
 function collision = check_segment(seg_x, seg_y, obstacle)
-    rect_x = [obstacle(1), obstacle(1)+obstacle(3), obstacle(1)+obstacle(3), obstacle(1), obstacle(1)];
-    rect_y = [obstacle(2), obstacle(2), obstacle(2)+obstacle(4), obstacle(2)+obstacle(4), obstacle(2)];
-    
-    [xi, ~] = polyxpoly(seg_x, seg_y, rect_x, rect_y); % test des intersections avec le rectangle
-    
-    collision = ~isempty(xi);
+    P1 = [seg_x(1), seg_y(1)];
+    P2 = [seg_x(2), seg_y(2)];
+
+    % Les 4 coins du rectangle
+    corners = [
+        obstacle(1), obstacle(2);
+        obstacle(1)+obstacle(3), obstacle(2);
+        obstacle(1)+obstacle(3), obstacle(2)+obstacle(4);
+        obstacle(1), obstacle(2)+obstacle(4)
+    ];
+
+    % Tester avec chaque côté du rectangle
+    for i = 1:4
+        j = mod(i, 4) + 1;  % Index du coin suivant
+        P3 = corners(i,:);
+        P4 = corners(j,:);
+
+        % Test d'intersection
+        d1 = P2 - P1;
+        d2 = P4 - P3;
+        d3 = P1 - P3;
+
+        denom = d1(1)*d2(2) - d1(2)*d2(1);
+
+        if abs(denom) > 1e-10
+            t = (d3(2)*d2(1) - d3(1)*d2(2)) / denom;
+            u = (d3(2)*d1(1) - d3(1)*d1(2)) / denom;
+
+            if t >= 0 && t <= 1 && u >= 0 && u <= 1
+                collision = true;
+                return;
+            end
+        end
+    end
+
+    collision = false;
 end

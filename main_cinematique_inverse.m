@@ -6,11 +6,11 @@ axis equal
 dims = [1; 1; 2; 1];
 
 %% Dessin du robot
-dessin_bras(dims,[pi/2; pi/4; pi/4; pi/4]);
+%dessin_bras(dims,[pi/2; pi/4; pi/4; pi/4]);
 
 %% Dessin de l'obstacle
 obstacle = [1 0 1 3]; % x0 y0 lx ly
-dessin_obstacle(obstacle);
+dessin_obstacles(obstacle);
 
 %% Cinematique directe
 cinematique_directe(dims,[-pi/2; pi/4; pi/4; pi/4]);
