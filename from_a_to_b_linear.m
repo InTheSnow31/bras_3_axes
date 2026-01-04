@@ -1,4 +1,4 @@
-function q = from_a_to_b_linear(dims, a, b, obstacles, q)
+function q = from_a_to_b_linear(dims, a, b, angle, obstacles, q)
     %[q_a,erreur1] = cinematique_inverse_obstacle(dims,[-pi/2 pi/4 pi/4 pi/4],a(1),a(2),pi/4,obstacles)
     %[q_b, erreur2] = cinematique_inverse_obstacle(dims,[-pi/2 pi/4 pi/4 pi/4],b(1),b(2),pi/4,obstacles)
     %q_a = mod(q_a + pi, 2*pi) - pi;
@@ -12,10 +12,10 @@ function q = from_a_to_b_linear(dims, a, b, obstacles, q)
         % interpolation linéaire des angles
         %q = q_a + dq * (k / N);
         c = a + dc * (k / N);
-        [q_plus1, erreur] = cinematique_inverse_obstacle(dims, q ,c(1),c(2),pi/4,obstacles)
+        [q_plus1, erreur] = cinematique_inverse_obstacle(dims, q ,c(1),c(2),angle,obstacles)
         cla   % efface uniquement le contenu des axes
-        xlim([-2 4])
-        ylim([-2 4])
+        xlim([-2 6])
+        ylim([-2 6])
         pbaspect([1 1 1])  % rapport fixe
         axis manual         % verrouille les axes
         dessin_obstacles(obstacles)

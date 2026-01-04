@@ -1,6 +1,6 @@
 
 %% Dimensionement du robot
-dims = [1 1 2 1];
+dims = [1 2 2 1];
 
 
 %% Dessin du robot
@@ -17,4 +17,4 @@ dims = [1 1 2 1];
 %%from_a_to_b_linear(dims, [2 2]s, [2 3])
 
 %%optimal_path([0, 1], [0, 4], [[0 2 1 1]])
-from_a_to_b_smart(dims, [0, 1], [0, 4], [[0 2 1 1]])
+from_a_to_b_smart(dims, [0, 1], [1, 4],pi, [[0 2 1 1]])
