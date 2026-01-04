@@ -1,6 +1,5 @@
 function dessin_bras(dims,q)
     hold on
-    axis equal
     set(gca, 'Color', 'w');   % fond de la figure en blanc
     repere0 = trans(0,0);
     circle_color(repere0(1,3),repere0(2,3),0.1,[1 1 0])
